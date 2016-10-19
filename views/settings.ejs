@@ -1,0 +1,65 @@
+
+          <!-- Page, "data-page" contains page name -->
+          <div class="page theme-amber" data-page="settings">
+
+            <!-- Top Navbar. In Material theme it should be inside of the page-->
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="center">Settings</div>
+                <div class="right">
+                  <a href="/" class="link icon-only"> <i class="icon icon-close"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scrollable page content -->
+            <div class="page-content">
+              <form id='settingsForm'>
+              <div class="content-block-title">Number of messages</div>
+                <div class="list-block">
+                  <ul>
+                    <!-- Text inputs -->
+                    <li>
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon ion-help-circled"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title label">Messages</div>
+                          <div class="item-input">
+                            <input type="number" placeholder="Messages" id="numMessages" name="numMessages" value=<%=num_messages %>>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                     <!-- Additional "smart-select" class -->
+                     <a href="#" class="item-link smart-select custom-select" data-open-in="popup" data-navbar-theme="black" data-form-theme="amber" data-back-on-select="true">
+                       <!-- select -->
+                       <select name='mainLanguage'>
+                         <%
+                             for ( var key in languages )
+                             {
+                                 var selected = ( main_language == key ) ? "selected" : "";
+                                 %><option value="<%=key %>" <%=selected %>><%=languages[key] %></option><%
+                             }
+                         %>
+                       </select>
+                       <div class="item-content">
+                         <div class="item-media"><i class="icon ion-android-globe"></i></div>
+                         <div class="item-inner">
+                           <!-- Select label -->
+                           <div class="item-title">Main Language </div>
+                         </div>
+                       </div>
+                     </a>
+                   </li>
+                  </ul>
+              </div>
+              <!-- Buttons -->
+              <div class="content-block">
+                <p class="buttons-row">
+                  <a href="#" class="link button button-big button-fill disabled color-black" id="btnSettings">Save changes</a>
+                </p>
+            </div>
+            </form>
+          </div>
+          </div>

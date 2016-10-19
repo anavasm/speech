@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar -->
+    <!--<meta name="theme-color" content="#2196f3">-->
+    <!-- Your app title -->
+    <title>Speech System</title>
+    <!-- Path to Framework7 Library CSS, Material Theme -->
+    <link rel="stylesheet" href="css/framework7.material.min.css">
+    <!-- Path to Framework7 color related styles, Material Theme -->
+    <link rel="stylesheet" href="css/framework7.material.colors.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+    <link rel="stylesheet" href="css/ionicons.css">
+  </head>
+  <body>
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+    <!-- Views -->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        <!-- Pages container, because we use fixed navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-fixed">
+          <div data-page="index" class="page theme-amber">
+
+            <!-- Top Navbar. In Material theme it should be inside of the page-->
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="center">Speech</div>
+                <div class="right">
+                  <a href="/settings" id="barSettings" class="link icon-only fix-icon-height"> <i class="icon ion-gear-a"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scrollable page content -->
+            <div class="page-content">
+
+              <div class="content-block">
+                <% messages.forEach(function(message){ %>
+                  <div class="card demo-card-header-pic">
+                    <div style="background-image:url(../img/background.jpg)" valign="bottom" class="card-header no-border">
+                      <div class="left" style="font-weight:bold">
+                        <% switch (message.status) {
+                            case 0:  %> <i class="icon ion-record icon-title color-red emessage<%=message.id %>"></i>  <% break; %>
+                            <% case 1:  %> <i class="icon ion-record icon-title color-blue emessage<%=message.id %>"></i>  <% break; %>
+                            <% case 2:  %> <i class="icon ion-record icon-title color-green emessage<%=message.id %>"></i>  <% break; %>
+                        <% } %>
+                        <span class="color-white">Message: <%=message.id %></span>
+                      </div>
+                    </div>
+                    <div class="card-content">
+                      <div class="card-content-inner">
+                        <% switch (message.status) {
+                            case 0:  %> <p id=<%= 'emessage'+message.id %> class="label-status"><span style="font-size: 13px;" class="color-gray">Not available</span><i class="color-red icon ion-record icon-small-right emessage<%=message.id %>"></i></p> <% break; %>
+                            <% case 1:  %> <p id=<%= 'emessage'+message.id %> class="label-status"><span style="font-size: 13px;" class="color-gray">In progress</span><i class="color-blue icon ion-record icon-small-right emessage<%=message.id %>"></i></p> <% break; %>
+                            <% case 2:  %> <p id=<%= 'emessage'+message.id %> class="label-status"> <span style="font-size: 13px;" class="color-gray">Completed</span><i class="color-green icon ion-record icon-small-right emessage<%=message.id %>"></i></p> <% break; %>
+                        <% } %>
+                        <div class="list-block">
+                          <ul>
+                            <li>
+                              <div class="item-content">
+                                <div class="item-media">
+                                   <i class="icon ion-android-textsms"></i>
+                               </div>
+                                <div class="item-inner">
+                                  <div class="item-title floating-label">Message</div>
+                                  <div class="item-input item-input-field">
+                                    <input type="text" id=<%='mmessage'+message.id %> class="inputMessage" data-id=<%=message.id %> value="<%=message.message %>">
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <a href="#" class="item-link smart-select custom-select" data-open-in="popup" data-navbar-theme="black" data-form-theme="amber" data-back-on-select="true">
+                                <select class="selLanguage" id=<%='lmessage'+message.id %>>
+                                  <%
+                                      for ( var key in languages )
+                                      {
+                                          var selected = ( message.language == key ) ? "selected" : "";
+                                          %><option value="<%=key %>" <%=selected %>><%=languages[key] %></option><%
+                                      }
+                                  %>
+                                </select>
+                                <div class="item-content">
+                                  <div class="item-media">
+                                     <i class="icon ion-android-globe"></i>
+                                 </div>
+                                  <div class="item-inner">
+                                    <div class="item-title">
+                                      Language
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer" style="background-color:#f2f2f2">
+                      <a href="#" class="btnDownload color-black" id=<%='dmessage'+message.id %> data-id=<%=message.id %>><i class="icon ion-wand" style="margin-right:10px"></i> GENERATE</a>
+                      <a href="#" class="btnPlay item-link color-amber" id=<%='pmessage'+message.id %> data-id=<%=message.id %> <%=message.status!==2 ? "disabled" : "" %>><i class="icon ion-play" style="margin-right:10px"></i> PLAY</a>
+                    </div>
+                  </div>
+                  <br>
+                  <% })%>
+              </div>
+              <audio id="player" type="audio/wav"></audio>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/my-app.js"></script>
+  </body>
+</html>

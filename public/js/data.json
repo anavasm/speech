@@ -1,0 +1,38 @@
+{
+    "volume": 63,
+    "input_selected": 2,
+    "input_config": {
+        "subfloors": 3,
+        "trigger_on": 1,
+        "door_input_on": 1,
+        "fixed_input_on": 1,
+        "offsets": 10
+    },
+    "num_messages": 3,
+    "main_language": "es-ES_LauraVoice",
+    "messages": [
+        {
+            "id": 1,
+            "message": "Hola mundo",
+            "language": "es-ES_LauraVoice",
+            "status": 2,
+            "path": "C:\\nodeServer\\speech\\public\\audio\\1.wav"
+        },
+        {
+            "id": 2,
+            "message": "Hello world",
+            "language": "en-GB_KateVoice",
+            "status": 2,
+            "path": "C:\\nodeServer\\speech\\public\\audio\\2.wav"
+        },
+        {
+            "id": 3,
+            "message": "Bonjour le monde",
+            "language": "fr-FR_ReneeVoice",
+            "status": 2,
+            "path": "C:\\nodeServer\\speech\\public\\audio\\3.wav"
+        }
+    ],
+    "stories_status": 1,
+    "fixed_status": 1
+}
